@@ -13,7 +13,7 @@
       "registryType": "mcpb",
       "identifier": "https://github.com/atushi1841/japan-price-alert-mcp/releases/download/v0.1.0/server.mcpb",
       "version": "0.1.0",
-      "fileSha256": "5106919c58fef6bc462228f06b7c0435bce86d4d75b266c96224ca2170344dbe",
+      "fileSha256": "55c43beba6bdaf26b7487900d21b83c7fc2bc93b5c3ff6f010728408d4045167",
       "transport": {
         "type": "stdio"
       }

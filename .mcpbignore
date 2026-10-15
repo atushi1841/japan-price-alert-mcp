@@ -5,5 +5,7 @@ __pycache__
 */__pycache__
 *.pyc
 .git
+.gitignore
+.venv
 node_modules
 /.mcpbignore
