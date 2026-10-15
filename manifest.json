@@ -1,0 +1,347 @@
+{
+  "manifest_version": "0.4",
+  "name": "japan-price-alert-mcp",
+  "display_name": "Japan Price Alert MCP",
+  "version": "0.1.0",
+  "description": "Monitor Japanese EC product prices (Mercari, Yahoo Auctions, Rakuten, SUUMO, Kakaku.com) and get alerts on drops.",
+  "long_description": "Japan Price Alert MCP は、日本のECプラットフォーム（メルカリ、ヤフオク、楽天市場、SUUMO、価格.com）の商品価格を監視し、価格低下時に通知を送信するMCPサーバーです。\n\n## Tools\n\n| Tool | Description |\n|---|---|\n| `create_price_watch` | New price watch registration |\n| `list_price_watches` | List registered watches |\n| `get_price_watch` | Get single watch details |\n| `update_price_watch` | Update watch parameters |\n| `delete_price_watch` | Remove a watch |\n| `check_price_watch` | Force immediate price check |\n| `run_due_price_checks` | Run batch due checks |\n| `get_price_history` | Get historical price data |\n| `detect_platform_url` | Detect platform from URL |\n\n## Platforms\n- Mercari Japan (メルカリ)\n- Yahoo! Auctions / Shopping\n- Rakuten Ichiba (楽天市場)\n- SUUMO (物件価格)\n- Kakaku.com (価格.com)\n- Suruga-ya (駿河屋)\n\nRequires Python >=3.10 and fastmcp. No API keys required (uses public scraping).",
+  "author": {
+    "name": "atushi1841",
+    "url": "https://github.com/atushi1841"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atushi1841/japan-price-alert-mcp"
+  },
+  "homepage": "https://github.com/atushi1841/japan-price-alert-mcp",
+  "server": {
+    "type": "python",
+    "entry_point": "src/stdio_main.py",
+    "mcp_config": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--directory",
+        "${__dirname}",
+        "src/stdio_main.py"
+      ]
+    }
+  },
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "linux",
+      "win32"
+    ],
+    "runtimes": {
+      "python": ">=3.10"
+    }
+  },
+  "keywords": [
+    "japan",
+    "price",
+    "alert",
+    "monitor",
+    "mercari",
+    "yahoo",
+    "rakuten",
+    "suumo",
+    "kakaku",
+    "notification",
+    "mcp"
+  ],
+  "license": "MIT",
+  "tools": [
+    {
+      "name": "create_price_watch",
+      "description": "Register a Japanese EC product URL for price-change monitoring.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "user_id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "target_price_jpy": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "condition": {
+            "default": "lte",
+            "type": "string"
+          },
+          "drop_percentage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "notification_channel": {
+            "default": "log",
+            "type": "string"
+          },
+          "notification_destination": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "check_interval_minutes": {
+            "default": 60,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "user_id",
+          "url"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "list_price_watches",
+      "description": "List registered price watches.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "only_active": {
+            "default": false,
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    },
+    {
+      "name": "get_price_watch",
+      "description": "Get a single price watch by id.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "watch_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "watch_id"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "update_price_watch",
+      "description": "Update fields of an existing price watch.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "watch_id": {
+            "type": "string"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "target_price_jpy": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "condition": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "drop_percentage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "notification_channel": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "notification_destination": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "check_interval_minutes": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          },
+          "is_active": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null
+          }
+        },
+        "required": [
+          "watch_id"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "delete_price_watch",
+      "description": "Delete a price watch and all its price history.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "watch_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "watch_id"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "check_price_watch",
+      "description": "Immediately scrape the product URL and evaluate the alert condition.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "watch_id": {
+            "type": "string"
+          },
+          "force": {
+            "default": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "watch_id"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "run_due_price_checks",
+      "description": "Run due price checks for all active watches.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {},
+        "type": "object"
+      }
+    },
+    {
+      "name": "get_price_history",
+      "description": "Return the recorded price history for a watch.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "watch_id": {
+            "type": "string"
+          },
+          "limit": {
+            "default": 50,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "watch_id"
+        ],
+        "type": "object"
+      }
+    },
+    {
+      "name": "detect_platform_url",
+      "description": "Detect the EC platform for a product URL.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "type": "object"
+      }
+    }
+  ]
+}

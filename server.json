@@ -1,0 +1,12 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.atushi1841/japan-price-alert-mcp",
+  "description": "Japanese EC price-change monitoring and notification MCP server.",
+  "repository": {
+    "url": "https://github.com/atushi1841/japan-price-alert-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "title": "Japan Price Alert MCP",
+  "packages": []
+}

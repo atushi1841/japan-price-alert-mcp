@@ -1,0 +1,9 @@
+# MCPB ignore patterns
+*.db
+*.db-journal
+__pycache__
+*/__pycache__
+*.pyc
+.git
+node_modules
+/.mcpbignore
